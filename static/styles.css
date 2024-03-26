@@ -1,0 +1,33 @@
+.original_title {
+    background-color: rgb(10, 229, 25);
+    font-size: 20px;
+    font-weight: bold;
+    padding: 2px;
+    display: flex;
+    justify-content: center;
+}
+
+.Summary_title{
+    background-color: rgb(19, 50, 226);
+    font-size: 20px;
+    font-weight: bold;
+    padding: 2px;
+    display: flex;
+    justify-content: center;
+}
+
+.srt{
+    display: flex;
+    flex-direction: row;
+}
+
+.originalTxt{
+ background-color:rgb(10, 229, 25); ;
+ padding: 20px;
+}
+
+.summaryTxt{
+    background-color: rgb(19, 50, 226) ;
+    padding: 20px;
+    margin-left: 20px;
+}

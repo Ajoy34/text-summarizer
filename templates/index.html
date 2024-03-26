@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  </head>
+  <body>
+
+    <div class="container">
+      <div class="p-5 mb-4 rounded-3 text-center" style="background-image: linear-gradient(to bottom right, #90CAF9, #42A5F5);">
+        <h1 class="display-4 text-black"><b>SummarizeBot</b></h1>
+        <p class="lead text-white"><i>Retrieve the best summary for the text</i></p>
+      </div>
+
+      <form action="/analyze" method="post" target="_blank">
+
+        <div class="mb-1">
+          <label for="transcribed-text" class="form-label">Type Here Or Paste Transcribed Text </label>
+
+        </div>
+
+        <textarea name="rawtext"class="form-control" rows="6"  placeholder="{{ pdf_text }}" >{{ pdf_text }}</textarea>
+
+        <div class="mb-3">
+          <label for="transcribed-text" class="form-label">Copy Transcribed Text</label>
+          <input type="text" class="form-control" id="transcribed-text" name="transcribed-text" readonly>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+        <button type="button" class="btn btn-secondary" id="speech-btn">Start Speech Recognition</button>
+      </form>
+
+      <h1>PDF to Text Conversion</h1>
+      <form action="/upload" method="post" enctype="multipart/form-data">
+          <input type="file" name="pdf-file">
+          <button type="submit">Convert to Text</button>
+      </form>
+      
+
+      <h2>Handwritten Image to Text Conversion</h2>
+<form action="/upload" method="post" enctype="multipart/form-data">
+  <input type="file" name="image-file">
+  <button type="submit">Convert to Text</button>
+</form>
+{% if image_text %}
+  <h2>Image Text:</h2>
+  <p>{{ image_text }}</p>
+{% endif %}
+
+     
+
+    </div>
+
+    <script>
+      const speechBtn = document.querySelector("#speech-btn");
+      const transcribedText = document.querySelector("#transcribed-text");
+
+      speechBtn.addEventListener("click", () => {
+        const recognition = new window.webkitSpeechRecognition();
+
+        recognition.lang = "en-US";
+        recognition.interimResults = false;
+
+        recognition.onresult = (event) => {
+          const result = event.results[0][0].transcript;
+          transcribedText.value = result;
+        };
+
+        recognition.start();
+      });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+  </body>
+</html>
